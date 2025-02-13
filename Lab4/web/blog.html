@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <table border="1" id="blog">
+        <thead>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Post</th>
+            <th>createAt</th>
+        </thead>
+        <tbody>
+            <tr id="Loading">
+                <td colspan="4">Loading...</td>
+            </tr>
+            <!-- content here -->
+        </tbody>
+    </table>
+</body>
+
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        let jsonUrl = "http://localhost:8080/php/blog.php";
+
+        $.getJSON(jsonUrl, function (jsonData) {
+            //   console.log(jsonData);
+            jsonData.data.forEach(function (item) {
+                let tableRow = `
+                            <tr>
+                                <td>${item.id}</td>
+                                <td>${item.title}</td>
+                                <td>${item.post}</td>
+                                <td>${item.createAt}</td>
+                            <tr>
+                        `;
+            });
+
+            $("#blog tbody").append(tableRow);
+        });
+    }); //jQuery handler
+</script>
